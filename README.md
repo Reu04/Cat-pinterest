@@ -23,19 +23,23 @@
 
 1. Склонировать репозиторий:
 
+    ```bash
     git clone https://github.com/Reu04/Cat-pinterest.git  
     cd Cat-pinterest  
 
-2. Установить зависимости:
+1. Установить зависимости:
 
+    ```bash
     npm install  
 
-3. Запустить проект:
+2. Запустить проект:
 
+    ```bash
     npm run dev  
 
-4. Открыть в браузере:
+3. Открыть в браузере:
 
+    ```bash
     http://localhost:5173/Cat-pinterest/  
 
 ## Сборка проекта
