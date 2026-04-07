@@ -1,0 +1,27 @@
+.not-found {
+  text-align: center;
+  padding: $layout-padding;
+
+  h1 {
+    margin-bottom: 8px;
+    color: $color-primary;
+    font-size: 48px;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  &__link {
+    color: $color-text-active;
+    background-color: $color-primary;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color $transition ease;
+
+    &:hover {
+      background-color: $color-primary-hover;
+    }
+  }
+}

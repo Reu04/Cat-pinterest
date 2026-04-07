@@ -1,0 +1,21 @@
+.all-cats {
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  &__container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+
+  &__loader {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: $color-primary;
+  }
+
+  &__observer {
+    width: 100%;
+    height: 1px;
+  }
+}

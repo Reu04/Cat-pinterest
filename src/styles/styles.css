@@ -1,0 +1,444 @@
+@charset "UTF-8";
+/**
+  Нормализация блочной модели
+ */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure, fieldset):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+:where(address[class]) {
+  font-style: normal;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Упрощаем работу с изображениями и видео
+ */
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  height: 100%;
+  /**
+    Убираем скачок интерфейса по горизонтали
+    при появлении / исчезновении скроллбара
+   */
+  /**
+    Плавный скролл
+   */
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  min-height: 100%;
+  /**
+    Унифицированный интерлиньяж
+   */
+  line-height: 1.5;
+}
+
+/**
+  Нормализация высоты элемента ссылки при его инспектировании в DevTools
+ */
+a:where([class]) {
+  display: inline-flex;
+}
+
+/**
+  Курсор-рука при наведении на элемент
+ */
+button,
+label {
+  cursor: pointer;
+}
+
+/**
+  Убирает серую подсветку при тапе на мобильных устройствах (iOS/Android)
+ */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут fill со значением 'none' или начинается с 'url')
+ */
+:where([fill]:not([fill=none],
+[fill^=url])) {
+  fill: currentColor;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут stroke со значением 'none')
+ */
+:where([stroke]:not([stroke=none],
+[stroke^=url])) {
+  stroke: currentColor;
+}
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Приведение рамок таблиц в классический 'collapse' вид
+ */
+:where(table) {
+  border-collapse: collapse;
+  border-color: currentColor;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 560px;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  max-width: none;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px dashed black;
+  outline-offset: 4px;
+}
+
+.layout {
+  min-height: 100vh;
+}
+.layout__header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgb(33, 150, 243);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
+}
+.layout__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+.layout__links {
+  display: flex;
+}
+.layout__link, .layout__back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 0 24px;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.25px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+.layout__link {
+  color: rgba(255, 255, 255, 0.7);
+}
+.layout__back-link, .layout__link--active {
+  color: rgb(255, 255, 255);
+}
+.layout__link:hover, .layout__back-link:hover {
+  background-color: rgba(30, 136, 229, 0.7);
+}
+.layout__link--active {
+  background-color: rgb(30, 136, 229);
+}
+.layout__main {
+  padding: 24px;
+}
+.layout .arrow-left {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: rgb(255, 255, 255);
+}
+
+@media (max-width: 768px) {
+  .layout__link, .layout__back-link {
+    padding: 0 18px;
+  }
+  .layout__main {
+    padding: 20px 16px;
+  }
+}
+.cats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 225px);
+  -moz-column-gap: 48px;
+       column-gap: 48px;
+  row-gap: 46px;
+  justify-content: center;
+}
+
+@media (max-width: 1220px) {
+  .cats-grid {
+    grid-template-columns: repeat(4, 225px);
+  }
+}
+@media (max-width: 980px) {
+  .cats-grid {
+    grid-template-columns: repeat(3, 225px);
+  }
+}
+@media (max-width: 740px) {
+  .cats-grid {
+    grid-template-columns: repeat(2, 225px);
+  }
+}
+@media (max-width: 500px) {
+  .cats-grid {
+    grid-template-columns: 225px;
+  }
+}
+.cat-card {
+  width: 225px;
+  height: 225px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.cat-card:hover {
+  border: 15.5px solid #fff;
+  box-shadow: 0 9px 18px rgba(0, 0, 0, 0.18), 0 6px 5px rgba(0, 0, 0, 0.24);
+}
+.cat-card:hover .cat-card__favorite-button {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.cat-card__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cat-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.cat-card__favorite-button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+.cat-card__favorite-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+.cat-card__favorite-button--inactive:hover {
+  transform: scale(1.05);
+}
+
+.all-cats {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.all-cats__container {
+  max-width: 1221px;
+  margin: 0 auto;
+}
+.all-cats__loader {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  color: rgb(33, 150, 243);
+}
+.all-cats__observer {
+  width: 100%;
+  height: 1px;
+}
+
+.favorites {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.favorites__container {
+  max-width: 1221px;
+  margin: 0 auto;
+}
+.favorites__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 225px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 18px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.not-found {
+  text-align: center;
+  padding: 24px;
+}
+.not-found h1 {
+  margin-bottom: 8px;
+  color: rgb(33, 150, 243);
+  font-size: 48px;
+}
+.not-found p {
+  margin-bottom: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.not-found__link {
+  color: rgb(255, 255, 255);
+  background-color: rgb(33, 150, 243);
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.not-found__link:hover {
+  background-color: rgba(30, 136, 229, 0.7);
+}/*# sourceMappingURL=styles.css.map */
